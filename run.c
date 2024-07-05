@@ -316,32 +316,7 @@ float* forward(Transformer* transformer, int* tokens, int n_tokens, int pos) {
         linear(s->q, s->xb, w->wq + l*dim*dim, dim, dim, n_tokens * dim); // q = (n_tokens, dim)
         linear(s->k, s->xb, w->wk + l*dim*kv_dim, dim, kv_dim, n_tokens * dim); // k = (n_tokens, kv_dim)
         linear(s->v, s->xb, w->wv + l*dim*kv_dim, dim, kv_dim, n_tokens * dim); // v = (n_tokens, kv_dim)
-
-        if (n_tokens > 1) {
-            float *qb = calloc(dim, sizeof(float));
-            float *kb = calloc(kv_dim, sizeof(float));
-            float *vb = calloc(kv_dim, sizeof(float));
-            matmul(qb, s->xb, w->wq + l*dim*dim, dim, dim);
-            matmul(kb, s->xb, w->wk + l*dim*kv_dim, dim, kv_dim);
-            matmul(vb, s->xb, w->wv + l*dim*kv_dim, dim, kv_dim);
-            // compare qb, kb, vb with s->q, s->k, s->v
-            for (int i = 0; i < dim; i++) {
-                if (qb[i] != s->q[i]) {
-                    printf("qb[%d] = %f, s->q[%d] = %f\n", i, qb[i], i, s->q[i]);
-                }
-            }
-            for (int i = 0; i < kv_dim; i++) {
-                if (kb[i] != s->k[i]) {
-                    printf("kb[%d] = %f, s->k[%d] = %f\n", i, kb[i], i, s->k[i]);
-                }
-            }
-            for (int i = 0; i < kv_dim; i++) {
-                if (vb[i] != s->v[i]) {
-                    printf("vb[%d] = %f, s->v[%d] = %f\n", i, vb[i], i, s->v[i]);
-                }
-            }
-        }
-
+        
         // RoPE relative positional encoding: complex-valued rotate q and k in each head
         for (int t = 0; t < n_tokens; t++) {
                 for (int i = 0; i < dim; i+=2) {
