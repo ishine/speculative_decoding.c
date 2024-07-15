@@ -29,8 +29,8 @@ make && ./speculative_decoding -m ./models/stories42M.bin -d ./models/stories15M
 ```
 example output:
 ![image](https://github.com/user-attachments/assets/c7367481-9351-4bac-b022-f416653a558a)
-orange text: accepted draft model tokens 
-black text: base model tokens
+- orange text: accepted draft model tokens 
+- black text: base model tokens
 
 ### Meta llama2 models:
 to use llama2 models, follow [the description written in llama2.c](https://github.com/karpathy/llama2.c?tab=readme-ov-file#metas-llama-2-models)
