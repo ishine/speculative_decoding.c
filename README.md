@@ -1,7 +1,7 @@
 # speculative_decoding.c
 minimal C implementation of speculative decoding on llama2 model.
 
-Speculative decoding is a technique used to speed up autoregressive inference using a lightweight draft model. This project demonstrates this approach with simple pure C code.
+Speculative decoding is a technique used to speed up autoregressive inference with the help of a lightweight draft model. This project demonstrates this approach with simple pure C code.
 
 <p align="center">
   <img src="image.png" width="300" height="300" alt="specdec llama">
@@ -27,6 +27,10 @@ wget https://huggingface.co/karpathy/tinyllamas/resolve/main/stories42M.bin
 ```
 make && ./speculative_decoding -m ./models/stories42M.bin -d ./models/stories15M.bin -n 256 -i "Once upon a time"   
 ```
+example output:
+![image](https://github.com/user-attachments/assets/c7367481-9351-4bac-b022-f416653a558a)
+orange text: accepted draft model tokens 
+black text: base model tokens
 
 ### Meta llama2 models:
 to use llama2 models, follow [the description written in llama2.c](https://github.com/karpathy/llama2.c?tab=readme-ov-file#metas-llama-2-models)
